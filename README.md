@@ -1,2 +1,2 @@
-# Video-Compression-Website-
-Video Compression Website build on flask to compress video resolution and storage space
+# Image-Compression-Website-
+Image Compression Website build on flask to compress video resolution and storage space
