@@ -2,10 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello, World!</title>
+    <title>Image Compressor</title>
 </head>
 <body>
-    <h1>Hello, Madhumeeta Sahu!</h1>
+    <h1>Upload an image to compress</h1>
+    <form action="/compress" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Upload and Compress</button>
+    </form>
+    {% if compressed_image_url %}
+        <h2>Compressed Image</h2>
+        <img src="{{ compressed_image_url }}" alt="Compressed Image">
+        <p><a href="{{ compressed_image_url }}" download="compressed_image.jpg">Download Compressed Image</a></p>
+    {% endif %}
 </body>
 </html>
