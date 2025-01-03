@@ -2,18 +2,127 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Compressor</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9fb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container h1 {
+            margin: 0 0 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .container form {
+            margin: 0;
+        }
+
+        .container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .compression-options {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .compression-options label {
+            display: block;
+            margin: 5px 0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .result img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .result a {
+            display: inline-block;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .result a:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload an image to compress</h1>
-    <form action="/compress" method="post" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*" required>
-        <button type="submit">Upload and Compress</button>
-    </form>
-    {% if compressed_image_url %}
-        <h2>Compressed Image</h2>
-        <img src="{{ compressed_image_url }}" alt="Compressed Image">
-        <p><a href="{{ compressed_image_url }}" download="compressed_image.jpg">Download Compressed Image</a></p>
-    {% endif %}
+    <div class="container">
+        <h1>Compress Your Image</h1>
+        <form action="/compress" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required>
+
+            <div class="compression-options">
+                <label>
+                    <input type="radio" name="compression_level" value="low" required> Low Quality
+                </label>
+                <label>
+                    <input type="radio" name="compression_level" value="medium" checked> Medium Quality
+                </label>
+                <label>
+                    <input type="radio" name="compression_level" value="high"> High Quality
+                </label>
+            </div>
+
+            <button type="submit">Upload and Compress</button>
+        </form>
+
+        {% if compressed_image_url %}
+        <div class="result">
+            <h2>Compressed Image</h2>
+            <img src="{{ compressed_image_url }}" alt="Compressed Image">
+            <p><a href="{{ compressed_image_url }}" download="compressed_image.jpg">Download Compressed Image</a></p>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>

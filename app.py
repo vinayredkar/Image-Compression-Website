@@ -28,13 +28,24 @@ def compress():
     if image.filename == '':
         return 'No selected file', 400
 
+    compression_level = request.form.get('compression_level', 'medium')
+
+    # Define quality based on compression level
+    quality_map = {
+        'low': 30,
+        'medium': 50,
+        'high': 80
+    }
+    quality = quality_map.get(compression_level, 50)
+
     if image:
         # Open the uploaded image
         img = Image.open(image)
+        img = img.convert('RGB')  # Ensure it's in RGB mode for JPEG compatibility
         img_io = BytesIO()
 
         # Compress the image
-        img.save(img_io, 'JPEG', quality=50)
+        img.save(img_io, 'JPEG', quality=quality)
         img_io.seek(0)
 
         # Save the compressed image
